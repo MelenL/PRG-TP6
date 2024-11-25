@@ -37,11 +37,34 @@ public class Image extends AbstractImage {
 	 */
 	@Override
 	public void affect(AbstractImage image2) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction a ecrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		Iterator<Node> it1 = this.iterator();// Il devrait manquer une ligne sinon erreur
+		Iterator<Node> it2 = image2.iterator();
+		affectAux(it1,it2);
+	}
+
+	public void affectAux(Iterator<Node>it1,Iterator<Node>it2 ) {
+		if (!it2.isEmpty()){
+			// Traitement des cas
+			Node node = it1.getValue();
+			Node nodeImage = it2.getValue();
+			if (it1.isEmpty() ){                // Cas 2 : si it1 est vide on affecte it2
+				it1.addValue(nodeImage);
+			}
+			else {
+				it2.setValue(nodeImage);
+			}
+			// Parcours
+			it1.goLeft();it2.goLeft();
+			affectAux(it1,it2);
+			it1.goUp();	it2.goUp();
+			it1.goRight();it2.goRight();
+			affectAux(it1,it2);
+			it1.goUp();it2.goUp();
+		}
+
+		else{
+			while(!it1.isEmpty())it1.remove();   //Cas 1 : Tant qu'il reste des valeurs dans l'arbre 1 on supprime
+		}
 	}
 
 	/**
