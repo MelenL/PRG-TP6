@@ -14,7 +14,7 @@ import fr.istic.prg1.tree_util.Node;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Mickaël Foursov <foursov@univ-rennes1.fr>
+ * @author Melen Laclais <melen.laclais@etudiant.univ-rennes1.fr> & Noah Tombeze <noah.tombeze@etudiant.univ-rennes1.fr>
  * @version 2.0
  * @since 2015-06-15
  * 

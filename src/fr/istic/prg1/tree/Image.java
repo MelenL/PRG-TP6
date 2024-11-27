@@ -8,7 +8,7 @@ import fr.istic.prg1.tree_util.Node;
 import fr.istic.prg1.tree_util.NodeType;
 
 /**
- * @author Mickaël Foursov <foursov@univ-rennes1.fr>
+ * @author Melen Laclais <melen.laclais@etudiant.univ-rennes1.fr> & Noah Tombeze <noah.tombeze@etudiant.univ-rennes1.fr>
  * @version 5.0
  * @since 2023-09-23
  * 
@@ -37,12 +37,48 @@ public class Image extends AbstractImage {
 	 */
 	@Override
 	public void affect(AbstractImage image2) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction a ecrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		if(this != image2 ) {
+			Iterator<Node> it1 = this.iterator();
+			Iterator<Node> it2 = image2.iterator();
+			affectAux(it1,it2);
+		}
 	}
+
+	private void affectAux(Iterator<Node> it1, Iterator<Node> it2) {
+		if(it2.nodeType() == NodeType.DOUBLE) {
+			if(it1.isEmpty()) {
+				it1.addValue(it2.getValue());
+			}
+			else {
+				it1.setValue(it2.getValue());
+			}
+
+			it1.goLeft(); it2.goLeft();
+			affectAux(it1,it2);
+			it1.goUp(); it2.goUp();
+			it1.goRight(); it2.goRight();
+			affectAux(it1,it2);
+			it1.goUp(); it2.goUp();
+		}
+		else {
+			//oN AFFECTE LA VALEUR DE LA FEUILLE À IT1
+			if(it1.isEmpty()) {
+				it1.addValue(it2.getValue());
+			}
+			else {
+				it1.setValue(it2.getValue());
+				if(it1.nodeType() == NodeType.DOUBLE) {
+					it1.goLeft();
+					it1.remove();
+					it1.goUp();
+					it1.goRight();
+					it1.remove();
+				}
+			}
+			//si fils gauche OU/ET droit dans IT1, on les supprime
+		}
+	}
+
 
 	/**
 	 * this devient rotation de image2 à 180 degrés.
