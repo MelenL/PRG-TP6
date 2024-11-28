@@ -178,35 +178,35 @@ public class Image extends AbstractImage {
         Iterator<Node> it1 = this.iterator();
         Iterator<Node> it2 = image2.iterator();
         it1.clear();
-        mirrorHAux(it1, it2, 0); // Commencer à la hauteur 0
+        mirrorHAux(it1, it2, 0);
     }
 
     private void mirrorHAux(Iterator<Node> it1, Iterator<Node> it2, int hauteur) {
-        it1.addValue(it2.getValue()); // Copier la valeur du nœud courant
+        it1.addValue(it2.getValue());
 
-        if (it2.getValue().state == 2) { // Si le nœud est double
-            if (hauteur % 2 != 0) { // À une hauteur impaire, inverser les directions
+        if (it2.getValue().state == 2) {
+            if (hauteur % 2 != 0) {
                 it1.goRight();
                 it2.goLeft();
-                mirrorHAux(it1, it2, hauteur + 1); // Descendre à gauche de it2 mais à droite de it1
+                mirrorHAux(it1, it2, hauteur + 1);
                 it1.goUp();
                 it2.goUp();
 
                 it1.goLeft();
                 it2.goRight();
-                mirrorHAux(it1, it2, hauteur + 1); // Descendre à droite de it2 mais à gauche de it1
+                mirrorHAux(it1, it2, hauteur + 1);
                 it1.goUp();
                 it2.goUp();
-            } else { // À une hauteur paire, copier normalement
+            } else {
                 it1.goLeft();
                 it2.goLeft();
-                mirrorHAux(it1, it2, hauteur + 1); // Descendre à gauche
+                mirrorHAux(it1, it2, hauteur + 1);
                 it1.goUp();
                 it2.goUp();
 
                 it1.goRight();
                 it2.goRight();
-                mirrorHAux(it1, it2, hauteur + 1); // Descendre à droite
+                mirrorHAux(it1, it2, hauteur + 1);
                 it1.goUp();
                 it2.goUp();
             }
