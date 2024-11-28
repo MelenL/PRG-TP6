@@ -41,13 +41,11 @@ public class Image extends AbstractImage {
         affectAux(it1, it2);
     }
 
-    public void affectAux(Iterator<Node> it1, Iterator<Node> it2) {
+    private void affectAux(Iterator<Node> it1, Iterator<Node> it2) {
         Node node = it2.getValue();
         it1.addValue(node);
 
         if (it2.getValue().state == 2) {
-            it1.addValue(Node.valueOf(2));
-
             it1.goLeft();
             it2.goLeft();
             affectAux(it1, it2);
@@ -69,11 +67,27 @@ public class Image extends AbstractImage {
      */
     @Override
     public void rotate180(AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        Iterator<Node> it1 = this.iterator();
+        Iterator<Node> it2 = image2.iterator();
+        it1.clear();
+        rotate180Aux(it1,it2);
+    }
+
+    private void rotate180Aux(Iterator<Node> it1, Iterator<Node> it2) {
+        it1.addValue(it2.getValue());
+
+        if (it2.getValue().state == 2) {
+            it1.goRight();
+            it2.goLeft();
+            rotate180Aux(it1, it2);
+            it1.goUp();
+            it2.goUp();
+            it1.goLeft();
+            it2.goRight();
+            rotate180Aux(it1, it2);
+            it1.goUp();
+            it2.goUp();
+        }
     }
 
     /**
@@ -112,12 +126,46 @@ public class Image extends AbstractImage {
      */
     @Override
     public void mirrorV(AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        Iterator<Node> it1 = this.iterator();
+        Iterator<Node> it2 = image2.iterator();
+        it1.clear();
+        mirrorVAux(it1, it2, 0);
     }
+
+    private void mirrorVAux(Iterator<Node> it1, Iterator<Node> it2, int hauteur) {
+        it1.addValue(it2.getValue());
+
+        if (it2.getValue().state == 2) {
+            if (hauteur % 2 == 0) {
+                it1.goRight();
+                it2.goLeft();
+                mirrorVAux(it1, it2, hauteur + 1);
+                it1.goUp();
+                it2.goUp();
+
+                it1.goLeft();
+                it2.goRight();
+                mirrorVAux(it1, it2, hauteur + 1);
+                it1.goUp();
+                it2.goUp();
+            } else {
+                it1.goLeft();
+                it2.goLeft();
+                mirrorVAux(it1, it2, hauteur + 1);
+                it1.goUp();
+                it2.goUp();
+
+                it1.goRight();
+                it2.goRight();
+                mirrorVAux(it1, it2, hauteur + 1);
+                it1.goUp();
+                it2.goUp();
+            }
+        }
+    }
+
+
+
 
     /**
      * this devient image miroir horizontale de image2.
@@ -127,11 +175,42 @@ public class Image extends AbstractImage {
      */
     @Override
     public void mirrorH(AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        Iterator<Node> it1 = this.iterator();
+        Iterator<Node> it2 = image2.iterator();
+        it1.clear();
+        mirrorHAux(it1, it2, 0); // Commencer à la hauteur 0
+    }
+
+    private void mirrorHAux(Iterator<Node> it1, Iterator<Node> it2, int hauteur) {
+        it1.addValue(it2.getValue()); // Copier la valeur du nœud courant
+
+        if (it2.getValue().state == 2) { // Si le nœud est double
+            if (hauteur % 2 != 0) { // À une hauteur impaire, inverser les directions
+                it1.goRight();
+                it2.goLeft();
+                mirrorHAux(it1, it2, hauteur + 1); // Descendre à gauche de it2 mais à droite de it1
+                it1.goUp();
+                it2.goUp();
+
+                it1.goLeft();
+                it2.goRight();
+                mirrorHAux(it1, it2, hauteur + 1); // Descendre à droite de it2 mais à gauche de it1
+                it1.goUp();
+                it2.goUp();
+            } else { // À une hauteur paire, copier normalement
+                it1.goLeft();
+                it2.goLeft();
+                mirrorHAux(it1, it2, hauteur + 1); // Descendre à gauche
+                it1.goUp();
+                it2.goUp();
+
+                it1.goRight();
+                it2.goRight();
+                mirrorHAux(it1, it2, hauteur + 1); // Descendre à droite
+                it1.goUp();
+                it2.goUp();
+            }
+        }
     }
 
     /**
