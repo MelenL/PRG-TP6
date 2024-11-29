@@ -70,7 +70,7 @@ public class Image extends AbstractImage {
         Iterator<Node> it1 = this.iterator();
         Iterator<Node> it2 = image2.iterator();
         it1.clear();
-        rotate180Aux(it1,it2);
+        rotate180Aux(it1, it2);
     }
 
     private void rotate180Aux(Iterator<Node> it1, Iterator<Node> it2) {
@@ -103,12 +103,11 @@ public class Image extends AbstractImage {
 
     private void videoInverseAux(Iterator<Node> it) {
         Node currentNode = it.getValue();
-            if (currentNode.state == 1) {
-                it.setValue(Node.valueOf(0));
-            }
-            else if (currentNode.state == 0) {
-                it.setValue(Node.valueOf(1));
-            } else {
+        if (currentNode.state == 1) {
+            it.setValue(Node.valueOf(0));
+        } else if (currentNode.state == 0) {
+            it.setValue(Node.valueOf(1));
+        } else {
             it.goLeft();
             videoInverseAux(it);
             it.goUp();
@@ -165,8 +164,6 @@ public class Image extends AbstractImage {
     }
 
 
-
-
     /**
      * this devient image miroir horizontale de image2.
      *
@@ -221,12 +218,24 @@ public class Image extends AbstractImage {
      */
     @Override
     public void zoomIn(AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        Iterator<Node> iterator1 = this.iterator();
+        Iterator<Node> iterator2 = image2.iterator();
+
+        iterator1.clear();
+
+        for (int i = 0; i < 2; i++) { //Au bout de 2 fois, on est à présent sûr d'être dans le quart supérieur gauche.
+            //Il faudra toujours deux descentes à gauche pour y parvenir.
+            if (iterator2.getValue() != Node.valueOf(2)) { //Car dans ce cas, l'image est tout éteinte ou tout allumé
+                affectAux(iterator1, iterator2); //Donc le quart sera la même chose.
+                return; //VAUX T'IL MIEUX UTILISER UN BOOLEAN FLAG ET DONC UNE BOUCLE WHILE ?
+            } else {
+                iterator2.goLeft(); //On va donc vers le quart supérieur gauche
+            }
+        }
+
+        affectAux(iterator1, iterator2); //Donc on copie.
     }
+
 
     /**
      * Le quart supérieur gauche de this devient image2, le reste de this devient
@@ -253,12 +262,78 @@ public class Image extends AbstractImage {
      */
     @Override
     public void intersection(AbstractImage image1, AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        Iterator<Node> it = this.iterator(); // Itérateur pour construire le résultat
+        Iterator<Node> it2 = image1.iterator(); // Itérateur pour le premier arbre
+        Iterator<Node> it3 = image2.iterator(); // Itérateur pour le deuxième arbre
+
+        it.clear(); // Réinitialiser l'arbre cible
+        intersectionAux(it, it2, it3); // Construction de l'arbre résultat
+        simplify(it); // Simplification de l'arbre
     }
+
+    private void intersectionAux(Iterator<Node> it, Iterator<Node> it1, Iterator<Node> it2) {
+        Node node1 = it1.getValue();
+        Node node2 = it2.getValue();
+
+
+        if (node1 == Node.valueOf(0) || node2 == Node.valueOf(0)) {
+            it.addValue(Node.valueOf(0));
+        } else if (node1 == Node.valueOf(2) || node2 == Node.valueOf(2)) {
+            it.addValue(Node.valueOf(2));
+
+            it.goLeft();
+            if (node1 != null)
+                it1.goLeft();
+            if (node2 != null)
+                it2.goLeft();
+            intersectionAux(it, it1, it2);
+
+            it.goUp();
+            if (node1 != null)
+                it1.goUp();
+            if (node2 != null)
+                it2.goUp();
+
+            it.goRight();
+            if (node1 != null)
+                it1.goRight();
+            if (node2 != null)
+                it2.goRight();
+            intersectionAux(it, it1, it2);
+
+            it.goUp();
+            if (node1 != null)
+                it1.goUp();
+            if (node2 != null)
+                it2.goUp();
+        } else {
+            it.addValue(Node.valueOf(1));
+        }
+    }
+
+    private void simplify(Iterator<Node> it) {
+        Node currentNode = it.getValue();
+
+        if (currentNode == Node.valueOf(2)) { // On vérifie uniquement les nœuds mixtes
+            it.goLeft();
+            simplify(it);
+            Node leftValue = it.getValue(); // Récupérer la valeur simplifiée du fils gauche (0 ou 1)
+            it.goUp();
+
+            it.goRight();
+            simplify(it);
+            Node rightValue = it.getValue();
+            it.goUp();
+
+            // Si les deux fils sont identiques, on remplace le nœud courant
+            if (leftValue.equals(rightValue) && leftValue != Node.valueOf(2)) {
+                it.clear();
+                it.addValue(leftValue);
+            }
+        }
+    }
+
+
 
     /**
      * this devient l'union de image1 et image2 au sens des pixels allumés.
@@ -269,12 +344,56 @@ public class Image extends AbstractImage {
      */
     @Override
     public void union(AbstractImage image1, AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        Iterator<Node> it = this.iterator();
+        Iterator<Node> it1 = image1.iterator();
+        Iterator<Node> it2 = image2.iterator();
+
+        it.clear();
+        unionAux(it, it1, it2);
+
+        simplify(it);
     }
+
+    private void unionAux(Iterator<Node> it, Iterator<Node> it1, Iterator<Node> it2) {
+        Node node1 = it1.getValue();
+        Node node2 = it2.getValue();
+
+
+        if (node1 == Node.valueOf(1) || node2 == Node.valueOf(1)) {
+            it.addValue(Node.valueOf(1));
+        } else if (node1 == Node.valueOf(2) || node2 == Node.valueOf(2)) {
+            it.addValue(Node.valueOf(2));
+
+            it.goLeft();
+            if (node1 != null)
+                it1.goLeft();
+            if (node2 != null)
+                it2.goLeft();
+            unionAux(it, it1, it2);
+
+            it.goUp();
+            if (node1 != null)
+                it1.goUp();
+            if (node2 != null)
+                it2.goUp();
+
+            it.goRight();
+            if (node1 != null)
+                it1.goRight();
+            if (node2 != null)
+                it2.goRight();
+            unionAux(it, it1, it2);
+
+            it.goUp();
+            if (node1 != null)
+                it1.goUp();
+            if (node2 != null)
+                it2.goUp();
+        } else {
+            it.addValue(Node.valueOf(0));
+        }
+    }
+
 
     /**
      * Attention : cette fonction ne doit pas utiliser la commande isPixelOn
