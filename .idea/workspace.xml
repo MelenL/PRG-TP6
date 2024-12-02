@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="" />
+=======
+    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="MirrorV et MirrorH">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" afterDir="false" />
+    </list>
+>>>>>>> 99e5818460c98c8b9e5ca3a7610476274fb223e8
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +34,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/MelenL/PRG-TP6.git&quot;,
-    &quot;accountId&quot;: &quot;c063a956-bc94-4fe0-b778-64de56c0e350&quot;
+    &quot;accountId&quot;: &quot;62ab245b-0d3e-4e74-a79b-e752568fd0d7&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -48,6 +55,8 @@
     &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;noah&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -55,14 +64,48 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager" selected="JUnit.TestImage">
+    <configuration name="TestImage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.istic.prg1.tree.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.istic.prg1.tree.test" />
+      <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.test.TestImage" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="TP6" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestImage" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
@@ -79,12 +122,59 @@
       <workItem from="1732185482308" duration="2157000" />
       <workItem from="1732198099719" duration="1272000" />
       <workItem from="1732547137003" duration="2801000" />
+<<<<<<< HEAD
       <workItem from="1732700430697" duration="31000" />
       <workItem from="1732890271252" duration="480000" />
+=======
+      <workItem from="1732698260668" duration="1801000" />
+      <workItem from="1732700182494" duration="3182000" />
+      <workItem from="1732791856413" duration="16709000" />
+>>>>>>> 99e5818460c98c8b9e5ca3a7610476274fb223e8
     </task>
+    <task id="LOCAL-00001" summary="VideoInverse et AffectAux amélioré">
+      <option name="closed" value="true" />
+      <created>1732699958999</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732699958999</updated>
+    </task>
+    <task id="LOCAL-00002" summary="MirrorV et MirrorH">
+      <option name="closed" value="true" />
+      <created>1732802985430</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732802985430</updated>
+    </task>
+    <task id="LOCAL-00003" summary="MirrorV et MirrorH">
+      <option name="closed" value="true" />
+      <created>1732803113223</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732803113223</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="VideoInverse et AffectAux amélioré" />
+    <MESSAGE value="MirrorV et MirrorH" />
+    <option name="LAST_COMMIT_MESSAGE" value="MirrorV et MirrorH" />
   </component>
 </project>
