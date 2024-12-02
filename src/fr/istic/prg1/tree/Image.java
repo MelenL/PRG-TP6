@@ -419,13 +419,43 @@ public class Image extends AbstractImage {
      */
     @Override
     public boolean isPixelOn(int x, int y) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
-        return false;
-    }
+        // Vérification des coordonnées valides
+        if (x < 0 || y < 0 || x >= 256 || y >= 256) return false;
+
+        // Initialisation des bornes et de l'itérateur
+        Iterator<Node> it = this.iterator();
+        boolean horizontal = true; // Indique si la coupure est horizontale
+        int xLower = 0, xUpper = 256; // Limites pour x
+        int yLower = 0, yUpper = 256; // Limites pour y
+
+        // Parcours de l'arbre jusqu'à atteindre une feuille
+        while (it.nodeType() != NodeType.LEAF) {
+            Node currentNode = it.getValue();
+
+            if (horizontal) { // Coupure horizontale
+                int split = (yLower + yUpper) / 2; // Position de coupure
+                if (y < split) { 
+                    it.goLeft();
+                    yUpper = split; // Mettre à jour la limite supérieure
+                } else { // Pixel en bas
+                    it.goRight();
+                    yLower = split; // Mettre à jour la limite inférieure
+                }
+            } else { // Coupure verticale
+                int split = (xLower + xUpper) / 2; // Position de coupure
+                if (x < split) { // Pixel à gauche
+                    it.goLeft();
+                    xUpper = split; // Mettre à jour la limite supérieure
+                } else { // Pixel à droite
+                    it.goRight();
+                    xLower = split; // Mettre à jour la limite inférieure
+                }
+            }
+            horizontal = !horizontal;
+        }
+        return it.getValue().state == 1; 
+    } 
+    
 
     /**
      * @param x1 abscisse du premier point
