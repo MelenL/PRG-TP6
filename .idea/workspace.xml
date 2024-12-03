@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="ZoomIn, Intersection et Union">
+    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="Pixelon, union, intersection et c'est tout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -187,7 +187,7 @@
       <workItem from="1732700182494" duration="3182000" />
       <workItem from="1732791856413" duration="19391000" />
       <workItem from="1733128667803" duration="7960000" />
-      <workItem from="1733215691773" duration="13669000" />
+      <workItem from="1733215691773" duration="16055000" />
     </task>
     <task id="LOCAL-00001" summary="VideoInverse et AffectAux amélioré">
       <option name="closed" value="true" />
@@ -221,7 +221,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732881629694</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Pixelon, union, intersection et c'est tout">
+      <option name="closed" value="true" />
+      <created>1733237129897</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733237129897</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +250,7 @@
     <MESSAGE value="VideoInverse et AffectAux amélioré" />
     <MESSAGE value="MirrorV et MirrorH" />
     <MESSAGE value="ZoomIn, Intersection et Union" />
-    <option name="LAST_COMMIT_MESSAGE" value="ZoomIn, Intersection et Union" />
+    <MESSAGE value="Pixelon, union, intersection et c'est tout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pixelon, union, intersection et c'est tout" />
   </component>
 </project>
