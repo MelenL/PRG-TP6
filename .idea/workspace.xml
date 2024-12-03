@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="" />
-=======
-    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="MirrorV et MirrorH">
+    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="ZoomIn, Intersection et Union">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" afterDir="false" />
     </list>
->>>>>>> 99e5818460c98c8b9e5ca3a7610476274fb223e8
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,9 +44,12 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.TestRunner.executor&quot;: &quot;Run&quot;,
     &quot;Application.TpArbre.executor&quot;: &quot;Run&quot;,
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
     &quot;JUnit.TestImage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestImage.testDiagonal1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestImage.testZoomOut1.executor&quot;: &quot;Run&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
     &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
@@ -71,6 +70,32 @@
   }
 }</component>
   <component name="RunManager" selected="JUnit.TestImage">
+    <configuration name="TestRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.test.TestRunner" />
+      <module name="TP6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.istic.prg1.tree.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TpArbre" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.TpArbre" />
+      <module name="TP6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.istic.prg1.tree.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestImage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TP6" />
       <extension name="coverage">
@@ -82,6 +107,38 @@
       <option name="PACKAGE_NAME" value="fr.istic.prg1.tree.test" />
       <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.test.TestImage" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestImage.testDiagonal1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.istic.prg1.tree.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.istic.prg1.tree.test" />
+      <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.test.TestImage" />
+      <option name="METHOD_NAME" value="testDiagonal1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestImage.testZoomOut1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.istic.prg1.tree.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.istic.prg1.tree.test" />
+      <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.test.TestImage" />
+      <option name="METHOD_NAME" value="testZoomOut1" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -98,6 +155,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TestImage" />
+        <item itemvalue="Application.TpArbre" />
+        <item itemvalue="Application.TestRunner" />
+        <item itemvalue="JUnit.TestImage.testZoomOut1" />
+        <item itemvalue="JUnit.TestImage.testDiagonal1" />
       </list>
     </recent_temporary>
   </component>
@@ -122,14 +183,11 @@
       <workItem from="1732185482308" duration="2157000" />
       <workItem from="1732198099719" duration="1272000" />
       <workItem from="1732547137003" duration="2801000" />
-<<<<<<< HEAD
-      <workItem from="1732700430697" duration="31000" />
-      <workItem from="1732890271252" duration="480000" />
-=======
       <workItem from="1732698260668" duration="1801000" />
       <workItem from="1732700182494" duration="3182000" />
-      <workItem from="1732791856413" duration="16709000" />
->>>>>>> 99e5818460c98c8b9e5ca3a7610476274fb223e8
+      <workItem from="1732791856413" duration="19391000" />
+      <workItem from="1733128667803" duration="7960000" />
+      <workItem from="1733215691773" duration="13669000" />
     </task>
     <task id="LOCAL-00001" summary="VideoInverse et AffectAux amélioré">
       <option name="closed" value="true" />
@@ -155,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732803113223</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ZoomIn, Intersection et Union">
+      <option name="closed" value="true" />
+      <created>1732881629694</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732881629694</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +241,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="VideoInverse et AffectAux amélioré" />
     <MESSAGE value="MirrorV et MirrorH" />
-    <option name="LAST_COMMIT_MESSAGE" value="MirrorV et MirrorH" />
+    <MESSAGE value="ZoomIn, Intersection et Union" />
+    <option name="LAST_COMMIT_MESSAGE" value="ZoomIn, Intersection et Union" />
   </component>
 </project>

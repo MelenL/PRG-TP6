@@ -246,12 +246,135 @@ public class Image extends AbstractImage {
      */
     @Override
     public void zoomOut(AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        AbstractImage image = new Image();
+        Iterator<Node> iterator = image.iterator();
+
+        // Construction de l'arbre initial
+        buildInitialTree(iterator);
+
+        // Copie et réduction de l'image2 dans le quart supérieur gauche
+        copyTree(image2.iterator(), iterator);
+
+        // Affectation de l'image et simplification
+        affect(image);
+        simplifyTree(this.iterator(), 0, 15);
     }
+
+    /**
+     * Construit l'arbre initial pour préparer l'emplacement de l'image à réduire.
+     */
+    private void buildInitialTree(Iterator<Node> iterator) {
+        iterator.addValue(Node.valueOf(2));
+        iterator.goRight();
+        iterator.addValue(Node.valueOf(0));
+        iterator.goUp();
+        iterator.goLeft();
+        iterator.addValue(Node.valueOf(2));
+        iterator.goRight();
+        iterator.addValue(Node.valueOf(0));
+        iterator.goUp();
+        iterator.goLeft();
+    }
+
+    /**
+     * Copie récursivement l'arbre de l'image source dans l'image destination.
+     */
+    private void copyTree(Iterator<Node> source, Iterator<Node> dest) {
+        if (source.isEmpty()) return;
+
+        dest.addValue(source.getValue());
+        if (source.getValue() == Node.valueOf(2)) {
+            dest.goLeft();
+            source.goLeft();
+            copyTree(source, dest);
+
+            dest.goUp();
+            source.goUp();
+            dest.goRight();
+            source.goRight();
+            copyTree(source, dest);
+
+            dest.goUp();
+            source.goUp();
+        }
+    }
+
+    /**
+     * Simplifie l'arbre en compressant les branches trop profondes
+     * et en supprimant les doublons inutiles.
+     */
+    private void simplifyTree(Iterator<Node> iterator, int depth, int maxDepth) {
+        if (iterator.isEmpty()) return;
+
+        if (depth >= maxDepth && iterator.getValue() == Node.valueOf(2)) {
+            compressTree(iterator);
+            return;
+        }
+
+        if (iterator.getValue() == Node.valueOf(2)) {
+            iterator.goLeft();
+            simplifyTree(iterator, depth + 1, maxDepth);
+            iterator.goUp();
+
+            iterator.goRight();
+            simplifyTree(iterator, depth + 1, maxDepth);
+            iterator.goUp();
+
+            // Suppression des branches doublons si nécessaire
+            mergeBranches(iterator);
+        }
+    }
+
+    /**
+     * Compresse un nœud complexe (state == 2) en calculant la majorité des états des sous-nœuds.
+     */
+    private void compressTree(Iterator<Node> iterator) {
+        int count0 = countOccurrences(iterator, Node.valueOf(0));
+        int count1 = countOccurrences(iterator, Node.valueOf(1));
+
+        iterator.clear();
+        iterator.addValue(count1 >= count0 ? Node.valueOf(1) : Node.valueOf(0));
+    }
+
+    /**
+     * Compte récursivement les occurrences d'une valeur donnée dans un sous-arbre.
+     */
+    private int countOccurrences(Iterator<Node> iterator, Node value) {
+        if (iterator.isEmpty()) return 0;
+
+        if (iterator.getValue() == Node.valueOf(2)) {
+            iterator.goLeft();
+            int leftCount = countOccurrences(iterator, value);
+            iterator.goUp();
+
+            iterator.goRight();
+            int rightCount = countOccurrences(iterator, value);
+            iterator.goUp();
+
+            return leftCount + rightCount;
+        }
+
+        return iterator.getValue() == value ? 1 : 0;
+    }
+
+    /**
+     * Fusionne les branches d'un nœud si elles sont identiques.
+     */
+    private void mergeBranches(Iterator<Node> iterator) {
+        iterator.goLeft();
+        Node left = iterator.getValue();
+        iterator.goUp();
+
+        iterator.goRight();
+        Node right = iterator.getValue();
+        iterator.goUp();
+
+        if (left.equals(right) && left != Node.valueOf(2)) {
+            iterator.clear();
+            iterator.addValue(left);
+        }
+    }
+
 
     /**
      * this devient l'intersection de image1 et image2 au sens des pixels allumés.
@@ -262,77 +385,50 @@ public class Image extends AbstractImage {
      */
     @Override
     public void intersection(AbstractImage image1, AbstractImage image2) {
-        Iterator<Node> it = this.iterator(); // Itérateur pour construire le résultat
-        Iterator<Node> it2 = image1.iterator(); // Itérateur pour le premier arbre
-        Iterator<Node> it3 = image2.iterator(); // Itérateur pour le deuxième arbre
+        Iterator<Node> it = this.iterator();
+        Iterator<Node> it1 = image1.iterator();
+        Iterator<Node> it2 = image2.iterator();
 
-        it.clear(); // Réinitialiser l'arbre cible
-        intersectionAux(it, it2, it3); // Construction de l'arbre résultat
-        simplify(it); // Simplification de l'arbre
+        it.clear();
+        intersectionAux(it, it1, it2);
+
     }
 
     private void intersectionAux(Iterator<Node> it, Iterator<Node> it1, Iterator<Node> it2) {
-        Node node1 = it1.getValue();
-        Node node2 = it2.getValue();
 
-
-        if (node1 == Node.valueOf(0) || node2 == Node.valueOf(0)) {
+        if(it1.getValue().state == 0 || it2.getValue().state == 0) {
             it.addValue(Node.valueOf(0));
-        } else if (node1 == Node.valueOf(2) || node2 == Node.valueOf(2)) {
-            it.addValue(Node.valueOf(2));
+        }
 
-            it.goLeft();
-            if (node1 != null)
-                it1.goLeft();
-            if (node2 != null)
-                it2.goLeft();
-            intersectionAux(it, it1, it2);
+        else if(it1.getValue().state == 2 && it2.getValue().state == 1) {
+            affectAux(it,it1);
+        }
 
-            it.goUp();
-            if (node1 != null)
-                it1.goUp();
-            if (node2 != null)
-                it2.goUp();
+        else if(it2.getValue().state == 2 && it1.getValue().state == 1) {
+            affectAux(it,it2);
+        }
 
-            it.goRight();
-            if (node1 != null)
-                it1.goRight();
-            if (node2 != null)
-                it2.goRight();
-            intersectionAux(it, it1, it2);
-
-            it.goUp();
-            if (node1 != null)
-                it1.goUp();
-            if (node2 != null)
-                it2.goUp();
-        } else {
+        else if(it1.getValue().state == 1 && it2.getValue().state == 1) {
             it.addValue(Node.valueOf(1));
         }
-    }
 
-    private void simplify(Iterator<Node> it) {
-        Node currentNode = it.getValue();
+        else {
+            it.addValue(Node.valueOf(2));
+            it.goLeft(); it1.goLeft(); it2.goLeft();
+            intersectionAux(it,it1,it2);
+            Node gauche = it.getValue();
+            it.goUp(); it1.goUp(); it2.goUp();
+            it.goRight(); it1.goRight(); it2.goRight();
+            intersectionAux(it,it1,it2);
+            Node droite = it.getValue();
+            it.goUp(); it1.goUp(); it2.goUp();
 
-        if (currentNode == Node.valueOf(2)) { // On vérifie uniquement les nœuds mixtes
-            it.goLeft();
-            simplify(it);
-            Node leftValue = it.getValue(); // Récupérer la valeur simplifiée du fils gauche (0 ou 1)
-            it.goUp();
-
-            it.goRight();
-            simplify(it);
-            Node rightValue = it.getValue();
-            it.goUp();
-
-            // Si les deux fils sont identiques, on remplace le nœud courant
-            if (leftValue.equals(rightValue) && leftValue != Node.valueOf(2)) {
+            if(gauche.state == 0 && droite.state == 0) {
                 it.clear();
-                it.addValue(leftValue);
+                it.addValue(gauche);
             }
         }
     }
-
 
 
     /**
@@ -351,46 +447,41 @@ public class Image extends AbstractImage {
         it.clear();
         unionAux(it, it1, it2);
 
-        simplify(it);
     }
 
     private void unionAux(Iterator<Node> it, Iterator<Node> it1, Iterator<Node> it2) {
-        Node node1 = it1.getValue();
-        Node node2 = it2.getValue();
 
-
-        if (node1 == Node.valueOf(1) || node2 == Node.valueOf(1)) {
+        if(it1.getValue().state == 1 || it2.getValue().state == 1) {
             it.addValue(Node.valueOf(1));
-        } else if (node1 == Node.valueOf(2) || node2 == Node.valueOf(2)) {
-            it.addValue(Node.valueOf(2));
+        }
 
-            it.goLeft();
-            if (node1 != null)
-                it1.goLeft();
-            if (node2 != null)
-                it2.goLeft();
-            unionAux(it, it1, it2);
+        else if(it1.getValue().state == 2 && it2.getValue().state == 0) {
+            affectAux(it,it1);
+        }
 
-            it.goUp();
-            if (node1 != null)
-                it1.goUp();
-            if (node2 != null)
-                it2.goUp();
+        else if(it1.getValue().state == 0 && it2.getValue().state == 2) {
+            affectAux(it,it2);
+        }
 
-            it.goRight();
-            if (node1 != null)
-                it1.goRight();
-            if (node2 != null)
-                it2.goRight();
-            unionAux(it, it1, it2);
-
-            it.goUp();
-            if (node1 != null)
-                it1.goUp();
-            if (node2 != null)
-                it2.goUp();
-        } else {
+        else if(it1.getValue().state == 0 && it2.getValue().state == 0) {
             it.addValue(Node.valueOf(0));
+        }
+
+        else {
+            it.addValue(Node.valueOf(2));
+            it.goLeft(); it1.goLeft(); it2.goLeft();
+            unionAux(it,it1,it2);
+            Node gauche = it.getValue();
+            it.goUp(); it1.goUp(); it2.goUp();
+            it.goRight(); it1.goRight(); it2.goRight();
+            unionAux(it,it1,it2);
+            Node droite = it.getValue();
+            it.goUp(); it1.goUp(); it2.goUp();
+
+            if(gauche.state == 1 && droite.state == 1) {
+                it.clear();
+                it.addValue(gauche);
+            }
         }
     }
 
@@ -403,11 +494,7 @@ public class Image extends AbstractImage {
      */
     @Override
     public boolean testDiagonal() {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        //
         return false;
     }
 
@@ -419,13 +506,44 @@ public class Image extends AbstractImage {
      */
     @Override
     public boolean isPixelOn(int x, int y) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
-        return false;
+        // Vérification des coordonnées valides
+        if (x < 0 || y < 0 || x >= 256 || y >= 256) return false;
+
+        // Initialisation des bornes et de l'itérateur
+        Iterator<Node> it = this.iterator();
+        boolean horizontal = true; // Indique si la coupure est horizontale
+        int xLower = 0;
+        int xUpper = 256; // Limites pour x
+        int yLower = 0;
+        int yUpper = 256; // Limites pour y
+
+        // Parcours de l'arbre jusqu'à atteindre une feuille
+        while (it.nodeType() != NodeType.LEAF) {
+
+            if (horizontal) { // Coupure horizontale
+                int split = (yLower + yUpper) / 2; // Position de coupure
+                if (y < split) {
+                    it.goLeft();
+                    yUpper = split; // Mettre à jour la limite supérieure
+                } else { // Pixel en bas
+                    it.goRight();
+                    yLower = split; // Mettre à jour la limite inférieure
+                }
+            } else { // Coupure verticale
+                int split = (xLower + xUpper) / 2; // Position de coupure
+                if (x < split) { // Pixel à gauche
+                    it.goLeft();
+                    xUpper = split; // Mettre à jour la limite supérieure
+                } else { // Pixel à droite
+                    it.goRight();
+                    xLower = split; // Mettre à jour la limite inférieure
+                }
+            }
+            horizontal = !horizontal;
+        }
+        return it.getValue().state == 1;
     }
+
 
     /**
      * @param x1 abscisse du premier point
@@ -438,11 +556,6 @@ public class Image extends AbstractImage {
      */
     @Override
     public boolean sameLeaf(int x1, int y1, int x2, int y2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
         return false;
     }
 
