@@ -8,7 +8,8 @@ import fr.istic.prg1.tree_util.Node;
 import fr.istic.prg1.tree_util.NodeType;
 
 /**
- * @author Mickaël Foursov <foursov@univ-rennes1.fr>
+ * @author Melen Laclais <melen.laclais@etudiant.univ-rennes1.fr
+ * @author Noah Tombeze <noah.tombeze@etudiant.univ-rennes1.fr
  * @version 5.0
  * @since 2023-09-23
  * <p>
@@ -223,17 +224,16 @@ public class Image extends AbstractImage {
 
         iterator1.clear();
 
-        for (int i = 0; i < 2; i++) { //Au bout de 2 fois, on est à présent sûr d'être dans le quart supérieur gauche.
-            //Il faudra toujours deux descentes à gauche pour y parvenir.
-            if (iterator2.getValue() != Node.valueOf(2)) { //Car dans ce cas, l'image est tout éteinte ou tout allumé
-                affectAux(iterator1, iterator2); //Donc le quart sera la même chose.
-                return; //VAUX T'IL MIEUX UTILISER UN BOOLEAN FLAG ET DONC UNE BOUCLE WHILE ?
+        for (int i = 0; i < 2; i++) {
+            if (iterator2.getValue() != Node.valueOf(2)) {
+                affectAux(iterator1, iterator2);
+                return;
             } else {
-                iterator2.goLeft(); //On va donc vers le quart supérieur gauche
+                iterator2.goLeft();
             }
         }
 
-        affectAux(iterator1, iterator2); //Donc on copie.
+        affectAux(iterator1, iterator2);
     }
 
 
@@ -246,135 +246,74 @@ public class Image extends AbstractImage {
      */
     @Override
     public void zoomOut(AbstractImage image2) {
-        AbstractImage image = new Image();
-        Iterator<Node> iterator = image.iterator();
+        Iterator<Node> it = this.iterator();
+        Iterator<Node> it2 = image2.iterator();
 
-        // Construction de l'arbre initial
-        buildInitialTree(iterator);
+        it.clear();
 
-        // Copie et réduction de l'image2 dans le quart supérieur gauche
-        copyTree(image2.iterator(), iterator);
+        //On crée la structure de notre arbre qui créera le quart supérieur gauche
+        it.addValue(Node.valueOf(2));
+        it.goRight();
+        it.addValue(Node.valueOf(0));
+        it.goUp();
+        it.goLeft();
+        it.addValue(Node.valueOf(2));
+        it.goRight();
+        it.addValue(Node.valueOf(0));
+        it.goUp();
+        it.goLeft();
 
-        // Affectation de l'image et simplification
-        affect(image);
-        simplifyTree(this.iterator(), 0, 15);
+        //On copie l'image dans le quart supérieur gauche
+        affectAux(it, it2);
+        it.goRoot();
+
+        compress(it, 0);
     }
 
-    /**
-     * Construit l'arbre initial pour préparer l'emplacement de l'image à réduire.
-     */
-    private void buildInitialTree(Iterator<Node> iterator) {
-        iterator.addValue(Node.valueOf(2));
-        iterator.goRight();
-        iterator.addValue(Node.valueOf(0));
-        iterator.goUp();
-        iterator.goLeft();
-        iterator.addValue(Node.valueOf(2));
-        iterator.goRight();
-        iterator.addValue(Node.valueOf(0));
-        iterator.goUp();
-        iterator.goLeft();
-    }
+    private void compress(Iterator<Node> it, int profondeur) {
+        if (it.getValue() == Node.valueOf(2)) {
+            if (profondeur <= 15) {
+                it.goLeft();
+                compress(it, profondeur + 1);
+                Node gauche = it.getValue();
+                it.goUp();
 
-    /**
-     * Copie récursivement l'arbre de l'image source dans l'image destination.
-     */
-    private void copyTree(Iterator<Node> source, Iterator<Node> dest) {
-        if (source.isEmpty()) return;
+                it.goRight();
+                compress(it, profondeur + 1);
+                Node droit = it.getValue();
+                it.goUp();
 
-        dest.addValue(source.getValue());
-        if (source.getValue() == Node.valueOf(2)) {
-            dest.goLeft();
-            source.goLeft();
-            copyTree(source, dest);
+                //On supprime les doublons
+                if((gauche.state == 0 && droit.state == 0) || (gauche.state == 1 && droit.state == 1)){
+                    it.clear();
+                    it.addValue(gauche);
+                }
+            } else {
+                //On arrive au niveau les plus détaillés qui nécessitent une compression, on compte donc les pixels majoritaires : Étends ou allumés ?
+                int count0 = occurrences(it, Node.valueOf(0));
+                int count1 = occurrences(it, Node.valueOf(1));
 
-            dest.goUp();
-            source.goUp();
-            dest.goRight();
-            source.goRight();
-            copyTree(source, dest);
-
-            dest.goUp();
-            source.goUp();
+                it.clear();
+                it.addValue(count1 >= count0 ? Node.valueOf(1) : Node.valueOf(0));
+            }
         }
     }
 
-    /**
-     * Simplifie l'arbre en compressant les branches trop profondes
-     * et en supprimant les doublons inutiles.
-     */
-    private void simplifyTree(Iterator<Node> iterator, int depth, int maxDepth) {
-        if (iterator.isEmpty()) return;
+    private int occurrences(Iterator<Node> it, Node valeur) {
+        if (it.getValue() == Node.valueOf(2)) {
+            it.goLeft();
+            int compteurGauche = occurrences(it, valeur);
+            it.goUp();
 
-        if (depth >= maxDepth && iterator.getValue() == Node.valueOf(2)) {
-            compressTree(iterator);
-            return;
+            it.goRight();
+            int compteurDroit = occurrences(it, valeur);
+            it.goUp();
+
+            return compteurGauche + compteurDroit;
         }
 
-        if (iterator.getValue() == Node.valueOf(2)) {
-            iterator.goLeft();
-            simplifyTree(iterator, depth + 1, maxDepth);
-            iterator.goUp();
-
-            iterator.goRight();
-            simplifyTree(iterator, depth + 1, maxDepth);
-            iterator.goUp();
-
-            // Suppression des branches doublons si nécessaire
-            mergeBranches(iterator);
-        }
+        return it.getValue() == valeur ? 1 : 0;
     }
-
-    /**
-     * Compresse un nœud complexe (state == 2) en calculant la majorité des états des sous-nœuds.
-     */
-    private void compressTree(Iterator<Node> iterator) {
-        int count0 = countOccurrences(iterator, Node.valueOf(0));
-        int count1 = countOccurrences(iterator, Node.valueOf(1));
-
-        iterator.clear();
-        iterator.addValue(count1 >= count0 ? Node.valueOf(1) : Node.valueOf(0));
-    }
-
-    /**
-     * Compte récursivement les occurrences d'une valeur donnée dans un sous-arbre.
-     */
-    private int countOccurrences(Iterator<Node> iterator, Node value) {
-        if (iterator.isEmpty()) return 0;
-
-        if (iterator.getValue() == Node.valueOf(2)) {
-            iterator.goLeft();
-            int leftCount = countOccurrences(iterator, value);
-            iterator.goUp();
-
-            iterator.goRight();
-            int rightCount = countOccurrences(iterator, value);
-            iterator.goUp();
-
-            return leftCount + rightCount;
-        }
-
-        return iterator.getValue() == value ? 1 : 0;
-    }
-
-    /**
-     * Fusionne les branches d'un nœud si elles sont identiques.
-     */
-    private void mergeBranches(Iterator<Node> iterator) {
-        iterator.goLeft();
-        Node left = iterator.getValue();
-        iterator.goUp();
-
-        iterator.goRight();
-        Node right = iterator.getValue();
-        iterator.goUp();
-
-        if (left.equals(right) && left != Node.valueOf(2)) {
-            iterator.clear();
-            iterator.addValue(left);
-        }
-    }
-
 
     /**
      * this devient l'intersection de image1 et image2 au sens des pixels allumés.
@@ -489,13 +428,40 @@ public class Image extends AbstractImage {
     /**
      * Attention : cette fonction ne doit pas utiliser la commande isPixelOn
      *
-     * @return true si tous les points de la forme (x, x) (avec 0 <= x <= 255)
+     * @return true si tous les points de la forme (x, x) (avec 0 <= x <= 255)
      * sont allumés dans this, false sinon
      */
     @Override
     public boolean testDiagonal() {
-        //
-        return false;
+        Iterator<Node> it = this.iterator();
+        return testDiagonalAux(it);
+    }
+
+    private boolean testDiagonalAux(Iterator<Node> it) {
+        if(it.getValue() == Node.valueOf(2)) {
+            boolean gauche;
+            boolean droit;
+
+            it.goLeft();
+            if(it.getValue() == Node.valueOf(2)) {
+                it.goLeft();
+                gauche = testDiagonalAux(it);
+                it.goUp();
+            }
+            else gauche = (it.getValue() == Node.valueOf(1));
+            it.goUp();
+
+            it.goRight();
+            if(gauche && it.getValue() == Node.valueOf(2)) {
+                it.goRight();
+                droit = testDiagonalAux(it);
+                it.goUp();
+            }
+            else droit = (it.getValue() == Node.valueOf(1));
+            it.goUp();
+            return gauche && droit;
+        }
+        else return it.getValue() == Node.valueOf(1);
     }
 
     /**
@@ -556,7 +522,54 @@ public class Image extends AbstractImage {
      */
     @Override
     public boolean sameLeaf(int x1, int y1, int x2, int y2) {
-        return false;
+        Iterator<Node> it = this.iterator();
+        boolean horizontal = true;
+        int xMin = 0;
+        int xMax = 256;
+        int yMin = 0;
+        int yMax = 256;
+
+        while (it.nodeType() != NodeType.LEAF) {
+            int split = horizontal ? (yMin + yMax) / 2 : (xMin + xMax) / 2;
+
+            // Appel de la fonction auxiliaire pour vérifier les positions des points
+            int direction = getDirection(horizontal, x1, y1, x2, y2, split);
+
+            if (direction == -1) {
+                it.goLeft();
+                if (horizontal) yMax = split; else xMax = split;
+            } else if (direction == 1) {
+                it.goRight();
+                if (horizontal) yMin = split; else xMin = split;
+            } else {
+                return false; // Les points ne sont pas dans la même sous-région
+            }
+
+            horizontal = !horizontal; // Alterner coupure
+        }
+        return true; // Les points sont dans la même feuille
+    }
+
+    /**
+     * Fonction auxiliaire pour déterminer la direction.
+     *
+     * @param horizontal indique si la coupure est horizontale
+     * @param x1 abscisse du premier point
+     * @param y1 ordonnée du premier point
+     * @param x2 abscisse du deuxième point
+     * @param y2 ordonnée du deuxième point
+     * @param split position de la coupure
+     * @return -1 si les deux points sont à gauche, 1 s'ils sont à droite, 0 s'ils sont dans des sous-régions différentes
+     */
+    private int getDirection(boolean horizontal, int x1, int y1, int x2, int y2, int split) {
+        if (horizontal) {
+            if (y1 < split && y2 < split) return -1; // Aller à gauche
+            if (y1 >= split && y2 >= split) return 1; // Aller à droite
+        } else {
+            if (x1 < split && x2 < split) return -1; // Aller à gauche
+            if (x1 >= split && x2 >= split) return 1; // Aller à droite
+        }
+        return 0; // Points dans des sous-régions différentes
     }
 
     /**
@@ -567,11 +580,20 @@ public class Image extends AbstractImage {
      */
     @Override
     public boolean isIncludedIn(AbstractImage image2) {
-        System.out.println();
-        System.out.println("-------------------------------------------------");
-        System.out.println("Fonction a ecrire");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
-        return false;
+        boolean inclus = true;
+        int x = 0;
+
+        while (x < 256 && inclus) {
+            int y = 0;
+            while (y < 256 && inclus) {
+                if (this.isPixelOn(x, y)) {
+                    inclus = image2.isPixelOn(x, y);
+                }
+                y++;
+            }
+            x++;
+        }
+
+        return inclus;
     }
 }
