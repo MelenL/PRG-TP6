@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="Pixelon, union, intersection et c'est tout">
+    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="Tout.">
+      <change afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/BinaryTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_2024_10_32_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_2024_10_32__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_2024_10_33_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_2024_10_33__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +74,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/fr/istic/prg1/tree" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.TestImage">
     <configuration name="TestRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.istic.prg1.tree.test.TestRunner" />
@@ -188,7 +197,10 @@
       <workItem from="1732700182494" duration="3182000" />
       <workItem from="1732791856413" duration="19391000" />
       <workItem from="1733128667803" duration="7960000" />
-      <workItem from="1733215691773" duration="29425000" />
+      <workItem from="1733215691773" duration="30164000" />
+      <workItem from="1733302597208" duration="646000" />
+      <workItem from="1733316209524" duration="19000" />
+      <workItem from="1733319960638" duration="2813000" />
     </task>
     <task id="LOCAL-00001" summary="VideoInverse et AffectAux amélioré">
       <option name="closed" value="true" />
@@ -238,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733244064343</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Tout.">
+      <option name="closed" value="true" />
+      <created>1733259206769</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733259206769</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +280,7 @@
     <MESSAGE value="MirrorV et MirrorH" />
     <MESSAGE value="ZoomIn, Intersection et Union" />
     <MESSAGE value="Pixelon, union, intersection et c'est tout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pixelon, union, intersection et c'est tout" />
+    <MESSAGE value="Tout." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tout." />
   </component>
 </project>
