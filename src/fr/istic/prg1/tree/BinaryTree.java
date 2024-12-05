@@ -167,6 +167,24 @@ public class BinaryTree<T> {
 				e.printStackTrace();
 				System.exit(0);
 			}
+
+			Element sentinel = new Element();
+			switch (this.nodeType()) {
+                case SIMPLE_LEFT:
+					sentinel = this.currentNode.left;
+					break;
+				case SIMPLE_RIGHT:
+					sentinel = this.currentNode.right;
+					break;
+				case SENTINEL:
+					return;
+                default:
+                    break;
+            }
+
+			this.currentNode.value = sentinel.value;
+			this.currentNode.left = sentinel.left;
+			this.currentNode.right = sentinel.right;
 		}
 
 		/**
@@ -175,6 +193,9 @@ public class BinaryTree<T> {
 		 */
 		@Override
 		public void clear() {
+			this.currentNode.value = null;
+			this.currentNode.left = null;
+			this.currentNode.right = null;
 		}
 
 		/**
@@ -182,7 +203,7 @@ public class BinaryTree<T> {
 		 */
 		@Override
 		public T getValue() {
-		    return null;
+			return this.currentNode.value;
 		}
 
 		/**
@@ -202,6 +223,10 @@ public class BinaryTree<T> {
 				e.printStackTrace();
 				System.exit(0);
 			}
+
+			this.currentNode.value = v;
+			this.currentNode.left = new Element();
+			this.currentNode.right = new Element();
 		}
 
 		/**
@@ -212,6 +237,7 @@ public class BinaryTree<T> {
 		 */
 		@Override
 		public void setValue(T v) {
+			this.currentNode.value = v;
 		}
 
 		private void ancestor(int i, int j) {

@@ -36,7 +36,7 @@ public class Image extends AbstractImage {
      */
     @Override
     public void affect(AbstractImage image2) {
-        Iterator<Node> it1 = this.iterator();// Il devrait manquer une ligne sinon erreur
+        Iterator<Node> it1 = this.iterator();
         Iterator<Node> it2 = image2.iterator();
         it1.clear();
         affectAux(it1, it2);
@@ -129,35 +129,35 @@ public class Image extends AbstractImage {
         Iterator<Node> it1 = this.iterator();
         Iterator<Node> it2 = image2.iterator();
         it1.clear();
-        mirrorVAux(it1, it2, 0);
+        mirrorVAux(it1, it2, true);
     }
 
-    private void mirrorVAux(Iterator<Node> it1, Iterator<Node> it2, int hauteur) {
+    private void mirrorVAux(Iterator<Node> it1, Iterator<Node> it2, boolean condition) {
         it1.addValue(it2.getValue());
 
         if (it2.getValue().state == 2) {
-            if (hauteur % 2 == 0) {
+            if (condition) {
                 it1.goRight();
                 it2.goLeft();
-                mirrorVAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, false);
                 it1.goUp();
                 it2.goUp();
 
                 it1.goLeft();
                 it2.goRight();
-                mirrorVAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, false);
                 it1.goUp();
                 it2.goUp();
             } else {
                 it1.goLeft();
                 it2.goLeft();
-                mirrorVAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, true);
                 it1.goUp();
                 it2.goUp();
 
                 it1.goRight();
                 it2.goRight();
-                mirrorVAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, true);
                 it1.goUp();
                 it2.goUp();
             }
@@ -176,35 +176,35 @@ public class Image extends AbstractImage {
         Iterator<Node> it1 = this.iterator();
         Iterator<Node> it2 = image2.iterator();
         it1.clear();
-        mirrorHAux(it1, it2, 0);
+        mirrorHAux(it1, it2, true);
     }
 
-    private void mirrorHAux(Iterator<Node> it1, Iterator<Node> it2, int hauteur) {
+    private void mirrorHAux(Iterator<Node> it1, Iterator<Node> it2, boolean condition) {
         it1.addValue(it2.getValue());
 
         if (it2.getValue().state == 2) {
-            if (hauteur % 2 != 0) {
+            if (!condition) {
                 it1.goRight();
                 it2.goLeft();
-                mirrorHAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, false);
                 it1.goUp();
                 it2.goUp();
 
                 it1.goLeft();
                 it2.goRight();
-                mirrorHAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, false);
                 it1.goUp();
                 it2.goUp();
             } else {
                 it1.goLeft();
                 it2.goLeft();
-                mirrorHAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, true);
                 it1.goUp();
                 it2.goUp();
 
                 it1.goRight();
                 it2.goRight();
-                mirrorHAux(it1, it2, hauteur + 1);
+                mirrorVAux(it1, it2, true);
                 it1.goUp();
                 it2.goUp();
             }
