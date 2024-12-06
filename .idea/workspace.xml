@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="Tout.">
+    <list default="true" id="f0c26038-dbb5-42fc-9eee-390ca6772237" name="Changes" comment="BinaryTree et changement dans Mirror avec un booléen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fr/istic/prg1/tree/BinaryTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/BinaryTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/istic/prg1/tree/Image.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,10 +28,31 @@
     &quot;assignee&quot;: &quot;ntombeze&quot;
   }
 }</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDONSGPhM6ENqcJ&quot;,
+        &quot;number&quot;: 1
+      },
+      &quot;lastSeen&quot;: 1733418518924
+    }
+  ]
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/MelenL/PRG-TP6.git&quot;,
     &quot;accountId&quot;: &quot;62ab245b-0d3e-4e74-a79b-e752568fd0d7&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;MelenL&quot;,
+    &quot;repository&quot;: &quot;PRG-TP6&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -58,7 +78,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;noah&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#1 on noah&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -198,7 +218,8 @@
       <workItem from="1733302597208" duration="646000" />
       <workItem from="1733316209524" duration="19000" />
       <workItem from="1733319960638" duration="3945000" />
-      <workItem from="1733402938914" duration="8756000" />
+      <workItem from="1733402938914" duration="10684000" />
+      <workItem from="1733481600153" duration="15000" />
     </task>
     <task id="LOCAL-00001" summary="VideoInverse et AffectAux amélioré">
       <option name="closed" value="true" />
@@ -264,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733324277990</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="BinaryTree et changement dans Mirror avec un booléen">
+      <option name="closed" value="true" />
+      <created>1733418492233</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733418492233</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,6 +316,7 @@
     <MESSAGE value="ZoomIn, Intersection et Union" />
     <MESSAGE value="Pixelon, union, intersection et c'est tout" />
     <MESSAGE value="Tout." />
-    <option name="LAST_COMMIT_MESSAGE" value="Tout." />
+    <MESSAGE value="BinaryTree et changement dans Mirror avec un booléen" />
+    <option name="LAST_COMMIT_MESSAGE" value="BinaryTree et changement dans Mirror avec un booléen" />
   </component>
 </project>
